@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+
+print (__cv2.version__)
  
 '''  imread reads the image from the file given as a parameter
 and returns a matrix of pixels
@@ -91,16 +93,25 @@ for example: [[[0, 0, 255], [0, 255, 0], [255, 0, 0]],
 
 #adding and subtracting images:
 
-img_1 = cv2.imread(r"saved-images\black-image.jpg")
-img_2 = cv2.imread(r"saved-images\Dog.jpg")
-#params of resize: (source, dimensions)
-img_2 = cv2.resize(img_2, (img_1.shape[1], img_1.shape[0]))
+# img_1 = cv2.imread(r"saved-images\black-image.jpg")
+# img_2 = cv2.imread(r"saved-images\Dog.jpg")
+# #params of resize: (source, dimensions)
+# img_2 = cv2.resize(img_2, (img_1.shape[1], img_1.shape[0]))
 
-img_3 = img_1 + img_2
+# img_3 = img_1 + img_2
 
-cv2.imshow("Image 1", img_1)
-cv2.imshow("Image 2", img_2)
-cv2.imshow("Added Images", img_3)
+# cv2.imshow("Image 1", img_1)
+# cv2.imshow("Image 2", img_2)
+# cv2.imshow("Added Images", img_3)
+
+
+#creating 2 black images with dots and adding them
+img_1 = np.zeros((255, 255, 3))
+img_2 = np.zeros((255, 255, 3))
+
+img_1 = cv2.circle(img_1, (30, 30), 1, (255, 255, 255), 3)
+cv2.imshow("Image", img_1)
+
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
