@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-print (__cv2.version__)
+# print (cv2.__version__)
  
 '''  imread reads the image from the file given as a parameter
 and returns a matrix of pixels
@@ -105,12 +105,83 @@ for example: [[[0, 0, 255], [0, 255, 0], [255, 0, 0]],
 # cv2.imshow("Added Images", img_3)
 
 
-#creating 2 black images with dots and adding them
-img_1 = np.zeros((255, 255, 3))
-img_2 = np.zeros((255, 255, 3))
 
-img_1 = cv2.circle(img_1, (30, 30), 1, (255, 255, 255), 3)
-cv2.imshow("Image", img_1)
+
+
+#creating 2 black images with dots and adding them
+#then connecting the dots between the two lines on the added image
+# img_1 = np.zeros((255, 255, 3))
+# img_2 = np.zeros((255, 255, 3))
+# textImg = np.zeros((255, 255, 3))
+
+# img_1_location = (30, 30)
+# img_2_location = (200, 200)
+# white = (255, 255, 255)
+# smooth_line = cv2.LINE_AA
+# font = cv2.FONT_HERSHEY_COMPLEX
+
+# img_1 = cv2.circle(img_1, img_1_location, 1, white, 3)
+# img_2 = cv2.circle(img_2, img_2_location, 1, white, 3)
+# textImg = cv2.putText(textImg, "Connect the dots", (0, 25), font,
+#                       0.75, (255, 255, 255), 1, smooth_line, False)
+
+# img_3 = img_1 + img_2 + textImg
+# cv2.line(img_3, img_1_location, img_2_location, white, 1, smooth_line)
+
+# cv2.imshow("Image 1", img_1)
+# cv2.imshow("Image 2", img_2)
+# cv2.imshow("Added images", img_3)
+
+
+
+
+
+#Alpha add weighted (stacking 2 slightly transparent images)
+
+# background = cv2.imread(r"saved-images\Beach-Background.jpg")
+# background = cv2.resize(background, (500, 500))
+# foreground = cv2.imread(r"saved-images\Dog.jpg")
+# foreground = cv2.resize(foreground, background.shape[1::-1])
+
+# backgroundAlpha = .7
+# foregroundAlpha = 1 - backgroundAlpha
+
+# blendedImg = cv2.addWeighted(background, backgroundAlpha, foreground, foregroundAlpha, 0)
+# cv2.imwrite(r"saved-images/blended-image.jpg", blendedImg)
+
+# finalBlendedImage = cv2.imread(r"saved-images\blended-image.jpg")
+
+# cv2.imshow("Blended Image", finalBlendedImage)
+
+
+
+#Alpha blending
+
+#define images and resize them to the same size:
+background = cv2.imread(r"saved-images\Beach-Background.jpg")
+background = cv2.resize(background, (500, 500))
+foreground = cv2.imread(r"saved-images\Dog.jpg")
+foreground = cv2.resize(foreground, background.shape[1::-1])
+foregroundAlpha = foreground[:, :, 3]
+
+cv2.imshow("img", background)
+
+#creating the alpha mask (black and white img with transparent background)
+# im = cv2.imread(r"saved-images\Dog.jpg", cv2.IMREAD_UNCHANGED)
+
+_, mask = cv2.threshold(foregroundAlpha, 0, 255, cv2.THRESH_BINARY)
+
+#threshold function: params: source, in this case our img.
+    #the [:, :, 3] notation denotes that the entire width, entire height, and the third index of the rgba
+    #part will be returned. The third index of the rgba is the alpha. So you get the alpha image of the im
+#0 is the threshold. 255 is the decider is the value is not equal to the threshold. cv2.thresh_binary is 
+
+cv2.imwrite(r'saved-images\mask.jpg', mask)
+
+# background = background.astype(float)
+# foreground = foreground.astype(float)
+
+
 
 
 cv2.waitKey(0)
