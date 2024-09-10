@@ -5,46 +5,57 @@ import numpy as np
 and returns a matrix of pixels
 '''
 
+# img = np.zeros((512, 512, 3))
+# # cv2.imwrite(r"saved-images/black-image.jpg", img)
 
-image = cv2.imread(r"images\savedDogGray.jpg")
+# withText = cv2.putText(img, "Hello World", (30, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+# image = cv2.imread(r"saved-images\Dog.jpg")
 
-#line
-lineStartPoint = (270, 100)
-lineEndPoint = (360, 90)
+# reshapedDog = cv2.resize(image, (512, 512))
+# # cv2.imshow("Image", image)
 
-#rect
-rectStartPoint = (135, 50)
-rectEndPoint = (500, 180)
+# # cv2.imshow("Image", img)
 
-#circ
-circleCenter = (310, 95)
-circleRadius = 30
+
+
+
+
+# cv2.waitKey(0)
+# #line
+# lineStartPoint = (270, 100)
+# lineEndPoint = (360, 90)
+
+# #rect
+# rectStartPoint = (135, 50)
+# rectEndPoint = (500, 180)
+
+# #circ
+# circleCenter = (310, 95)
+# circleRadius = 30
 
 #polygon
 # vertises = [[10, 10], [20, 20], [30, 20], [10, 10]]
-pts = np.array(
-                [[[25, 70]], [[25, 160]], 
-                [[110, 200]], [[200, 160]], 
-                [[200, 70]], [[110, 20]]],
-               )
+# pts = np.array(
+#                 [[[25, 70]], [[25, 160]], 
+#                 [[110, 200]], [[200, 160]], 
+#                 [[200, 70]], [[110, 20]]],
+#                )
 
-pts = pts.reshape((-1, 2, 2))
-print(pts)
+# pts = pts.reshape((-1, 2, 2))
+# print(pts)
 
-color = (0, 255, 0)
-thickness = (5)
+# color = (0, 255, 0)
+# thickness = (5)
 # print(image.shape)
 
-imageWithLine = cv2.line(image, lineStartPoint, lineEndPoint, color, thickness)
-rectangle = cv2.rectangle(image, rectStartPoint, rectEndPoint, color, thickness )
-circle = cv2.circle(image, circleCenter, circleRadius, color, thickness)
-polylines = cv2.polylines(image, pts, True, color, thickness)
+# imageWithLine = cv2.line(image, lineStartPoint, lineEndPoint, color, thickness)
+# rectangle = cv2.rectangle(image, rectStartPoint, rectEndPoint, color, thickness )
+# circle = cv2.circle(image, circleCenter, circleRadius, color, thickness)
+# polylines = cv2.polylines(image, pts, True, color, thickness)
 
-cv2.imshow("Image", imageWithLine)
 
-cv2.waitKey(0)
 
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
 
 
 
@@ -75,3 +86,21 @@ for example: [[[0, 0, 255], [0, 255, 0], [255, 0, 0]],
 # cv2.waitKey(0)
 
 # cv2.destroyAllWindows()
+
+
+
+#adding and subtracting images:
+
+img_1 = cv2.imread(r"saved-images\black-image.jpg")
+img_2 = cv2.imread(r"saved-images\Dog.jpg")
+#params of resize: (source, dimensions)
+img_2 = cv2.resize(img_2, (img_1.shape[1], img_1.shape[0]))
+
+img_3 = img_1 + img_2
+
+cv2.imshow("Image 1", img_1)
+cv2.imshow("Image 2", img_2)
+cv2.imshow("Added Images", img_3)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
