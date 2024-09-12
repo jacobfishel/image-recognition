@@ -154,32 +154,91 @@ for example: [[[0, 0, 255], [0, 255, 0], [255, 0, 0]],
 # cv2.imshow("Blended Image", finalBlendedImage)
 
 
+#adding an alpha chaannel to an image
+
+# duck = cv2.imread(r"duck.png")
+# # cv2.imshow("Duck image", duck)
+
+# cv2.waitKey(0)
+
+# if duck.shape[2] == 3:
+#     print("Adding an alpha channel")
+#     #add an alpha channel
+#     #how to add an alpha channel(transparency)
+#     alphaChannel = np.ones((duck.shape[0], duck.shape[1]), dtype=duck.dtype) * 255   #creates the alpha channel
+#     cv2.imshow("Image", alphaChannel)
+#     finalImg = cv2.merge([duck, alphaChannel])
+
+
+#     if finalImg.shape[2] == 4:
+#         print("Success!")
+#     else:
+#         print("Fail")
+
+# else:
+#     print("Duck has 4 channels")
+
+# duck = cv2.imread(r"image-thresholding\duck-with-alpha.png", cv2.IMREAD_UNCHANGED)
+
+#Image thresholding
+
+
 
 #Alpha blending
 
-#define images and resize them to the same size:
-background = cv2.imread(r"saved-images\Beach-Background.jpg")
-background = cv2.resize(background, (500, 500))
-foreground = cv2.imread(r"saved-images\Dog.jpg")
-foreground = cv2.resize(foreground, background.shape[1::-1])
-foregroundAlpha = foreground[:, :, 3]
+#need to get the duck into grayscale
+# duck = duck[:, :, 2]
+# cv2.imshow("Duck", duck)
+# cv2.waitKey(0)
 
-cv2.imshow("img", background)
 
-#creating the alpha mask (black and white img with transparent background)
-# im = cv2.imread(r"saved-images\Dog.jpg", cv2.IMREAD_UNCHANGED)
 
-_, mask = cv2.threshold(foregroundAlpha, 0, 255, cv2.THRESH_BINARY)
 
-#threshold function: params: source, in this case our img.
-    #the [:, :, 3] notation denotes that the entire width, entire height, and the third index of the rgba
-    #part will be returned. The third index of the rgba is the alpha. So you get the alpha image of the im
-#0 is the threshold. 255 is the decider is the value is not equal to the threshold. cv2.thresh_binary is 
 
-cv2.imwrite(r'saved-images\mask.jpg', mask)
+#only works for transparent background. Work on this later
+im = cv2.imread("image-thresholding\duck-with-alpha.png", cv2.IMREAD_UNCHANGED) 
+_, mask = cv2.threshold(im[:, :, 3], 240, 255, cv2.THRESH_BINARY_INV) 
+cv2.imshow('duck.jpg', mask)  
 
-# background = background.astype(float)
-# foreground = foreground.astype(float)
+
+
+# #define images and resize them to the same size:
+# background = cv2.imread(r"saved-images\Beach-Background.jpg")
+# background = cv2.resize(background, (500, 500))
+# foreground = cv2.imread(r"saved-images\Dog.jpg")
+# foreground = cv2.resize(foreground, background.shape[1::-1])
+# foregroundAlpha = foreground[:, :, 3]
+
+# cv2.imshow("img", background)
+
+# #creating the alpha mask (black and white img with transparent background)
+# # im = cv2.imread(r"saved-images\Dog.jpg", cv2.IMREAD_UNCHANGED)
+
+# _, mask = cv2.threshold(foregroundAlpha, 0, 255, cv2.THRESH_BINARY)
+
+# #threshold function: params: source, in this case our img.
+#     #the [:, :, 3] notation denotes that the entire width, entire height, and the third index of the rgba
+#     #part will be returned. The third index of the rgba is the alpha. So you get the alpha image of the im
+# #0 is the threshold. 255 is the decider is the value is not equal to the threshold. cv2.thresh_binary is 
+
+# cv2.imwrite(r'saved-images\mask.jpg', mask)
+
+# # background = background.astype(float)
+# # foreground = foreground.astype(float)
+
+
+
+
+#creating threshold images using the color channels
+    #1. convert to grayscale
+# spiderman = cv2.imread("spiderman.png")
+# spidermanGray = cv2.cvtColor(spiderman, cv2.COLOR_BGR2GRAY)
+
+# _, mask = cv2.threshold(spidermanGray, 220, 255, cv2.THRESH_BINARY)
+# cv2.imshow("bruh", mask)
+# cv2.imwrite(r"image-thresholding\spiderman.png", mask)
+
+
 
 
 
